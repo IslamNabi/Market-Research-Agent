@@ -1,4 +1,7 @@
 import requests
+#from config import GOOGLE_API_KEY, GOOGLE_CSE_ID
+#from .summarizer import Summarizer
+
 
 class Researcher:
     def __init__(self, api_key: str, cse_id: str):
@@ -37,3 +40,21 @@ class Researcher:
                     "snippet": item.get("snippet")
                 })
         return items
+
+# testing the files here 
+""" if __name__ == "__main__":
+    # Replace with your own credentials
+    API_KEY = GOOGLE_API_KEY
+    CSE_ID = GOOGLE_CSE_ID
+
+    r = Researcher(API_KEY, CSE_ID)
+    results = r.search("top 10 Tech startups in Pakistan", num_results=5)
+
+      # Pass results to Summarizer
+    summarizer = Summarizer()
+
+    structured_data = summarizer.extract_structured(results)
+    print("\nStructured Data:\n", structured_data)
+
+    summary = summarizer.summarize_market(structured_data)
+    print("\nGenerated Market Summary:\n", summary) """

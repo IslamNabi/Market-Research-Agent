@@ -17,15 +17,16 @@ def main():
 
     # Step 2: Research (Google Custom Search)
     researcher = Researcher(api_key=GOOGLE_API_KEY, cse_id=GOOGLE_CSE_ID)
-    data = researcher.search("Top AI startups in Pakistan", num_results=10)
+    data = researcher.search("Top 10 AI startups in Pakistan", num_results=5)
 
     # Step 3: Summarize
     summarizer = Summarizer()
-    summary = summarizer.summarize_market(data)
+    strucData = summarizer.extract_structured(data)
+    summary = summarizer.summarize_market(strucData)
 
     # Step 4: Analyze
     analyzer = Analyzer()
-    df = analyzer.to_dataframe(data)
+    df = analyzer.to_dataframe(strucData)
     stats, charts, *_ = analyzer.basic_stats_and_charts(df, slug="report")
 
     print("Stats:", stats)
@@ -33,7 +34,7 @@ def main():
 
     # Step 5: Generate PDF (with charts embedded)
     pdf_gen = PDFGenerator()
-    pdf_path = pdf_gen.create_report(summary, "market_research_report", charts=charts, stats=stats)
+    pdf_path = pdf_gen.create_report(summary, "market_research_report", stats=stats)
 
     # Step 6: Send Email
     email_sender = EmailSender()
